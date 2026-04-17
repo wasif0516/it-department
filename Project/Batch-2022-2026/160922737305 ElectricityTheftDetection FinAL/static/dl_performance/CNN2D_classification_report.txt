@@ -1,0 +1,13 @@
+Accuracy: 93.09
+RMSE: 0.2628
+MAE: 0.0691
+AUC: 71.37
+
+              precision    recall  f1-score   support
+
+           0       0.95      0.98      0.96      3655
+           1       0.69      0.45      0.54       371
+
+    accuracy                           0.93      4026
+   macro avg       0.82      0.71      0.75      4026
+weighted avg       0.92      0.93      0.92      4026

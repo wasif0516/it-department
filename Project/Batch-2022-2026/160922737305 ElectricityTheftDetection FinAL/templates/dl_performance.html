@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="fw-bold mb-4">Deep Learning Model Performance</h3>
+
+<!-- MODEL PERFORMANCE REPORTS -->
+<div class="card-professional mb-4">
+    <h5 class="fw-bold mb-3">📈 Training Results & Metrics</h5>
+    <div class="row">
+        {% for file in reports %}
+        <div class="col-md-4 mb-3">
+            <div class="p-3 border rounded bg-light d-flex justify-content-between align-items-center">
+                <span class="small">{{ file }}</span>
+                <button class="btn btn-sm btn-primary"
+                        onclick="openText('{{ url_for('static', filename='dl_performance/' + file) }}')">
+                    View
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- TRAINING & CONFUSION MATRIX PLOTS -->
+<div class="card-professional">
+    <h5 class="fw-bold mb-3">📊 Model Visualizations</h5>
+    <div class="row">
+        {% for img in images %}
+        <div class="col-md-4 mb-4 text-center">
+            <img src="{{ url_for('static', filename='dl_performance/' + img) }}"
+                 class="img-fluid rounded shadow"
+                 style="cursor:pointer;"
+                 onclick="openImage(this.src)">
+            <p class="mt-2 text-muted small">{{ img }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

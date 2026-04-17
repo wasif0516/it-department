@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Electricity Theft Detection</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<nav class="navbar navbar-expand-lg header-navbar">
+    <div class="container-fluid">
+        <span class="navbar-brand text-white fw-bold">
+            <i class="bi bi-lightning-charge-fill"></i> Electricity Theft Detection in Smart Grids Based on Deep Neural Network
+        </span>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- ================= SIDEBAR ================= -->
+        <div class="col-md-2 sidebar p-0">
+            <ul class="nav flex-column">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="bi bi-house-door"></i> Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/upload">
+                        <i class="bi bi-upload"></i> Upload Dataset
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/eda">
+                        <i class="bi bi-bar-chart-line"></i> EDA
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/ml_performance">
+                        <i class="bi bi-cpu"></i> ML Performance
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/dl_performance">
+                        <i class="bi bi-diagram-3"></i> DL Performance
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/best_model">
+                        <i class="bi bi-award"></i> Best Model
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('predict_customer') }}">
+                        <i class="bi bi-award"></i> Customer Prediction
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <div class="col-md-10 main-content">
+        <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="container mt-3">
+                  {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ================= MODAL ================= -->
+<div class="modal fade" id="fileModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title">Preview</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center" id="modalBody"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openImage(src) {
+    document.getElementById("modalBody").innerHTML =
+        `<img src="${src}" class="img-fluid rounded shadow">`;
+    new bootstrap.Modal(document.getElementById('fileModal')).show();
+}
+
+function openText(src) {
+    fetch(src)
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("modalBody").innerHTML =
+            `<pre class="p-3 bg-light rounded text-start">${data}</pre>`;
+        new bootstrap.Modal(document.getElementById('fileModal')).show();
+    });
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

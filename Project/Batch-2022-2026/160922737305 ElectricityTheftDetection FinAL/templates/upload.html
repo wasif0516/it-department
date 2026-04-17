@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div class="card-professional p-4 text-center">
+
+            <h4 class="fw-bold mb-3">Upload Dataset</h4>
+            <p class="text-muted mb-4">
+                Upload CSV dataset for Electricity Theft Detection analysis.
+            </p>
+
+            <form method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <input class="form-control" type="file" name="dataset" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Upload Dataset
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

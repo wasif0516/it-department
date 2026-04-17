@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h4 class="mb-4 fw-bold">Exploratory Data Analysis</h4>
+
+<div class="row">
+{% for img in images %}
+    <div class="col-md-4 mb-4">
+        <div class="card-professional text-center">
+            <img src="{{ url_for('static', filename='vis/' + img) }}"
+                 class="img-fluid rounded"
+                 style="cursor:pointer;"
+                 onclick="openImage(this.src)">
+            <p class="mt-2 text-muted small">{{ img }}</p>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

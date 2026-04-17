@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <h3 class="fw-bold mb-4">Customer Electricity Theft Prediction</h3>
+
+    <!-- Input Card -->
+    <div class="card-professional mb-4">
+        <form method="POST">
+            <div class="row align-items-end">
+                <div class="col-md-8">
+                    <label class="form-label fw-semibold">
+                        Enter Customer ID
+                    </label>
+                    <input type="string"
+                           name="customer_id"
+                           class="form-control"
+                           placeholder="Enter Customer ID"
+                           required>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+                        Predict
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% if prediction %}
+
+    <!-- Result Card -->
+    <div class="card-professional text-center p-4">
+
+        <h4 class="fw-bold mb-3">Prediction Result</h4>
+
+        <h2 class="mb-3
+            {% if risk_level == 'High' %} text-danger
+            {% elif risk_level == 'Medium' %} text-warning
+            {% else %} text-success
+            {% endif %}
+        ">
+            {{ prediction }}
+        </h2>
+
+        <p class="mb-2">
+            <strong>Probability:</strong> {{ probability }}
+        </p>
+
+        <p>
+            <strong>Risk Level:</strong>
+            <span class="
+                {% if risk_level == 'High' %} text-danger
+                {% elif risk_level == 'Medium' %} text-warning
+                {% else %} text-success
+                {% endif %}
+            ">
+                {{ risk_level }}
+            </span>
+        </p>
+
+        <!-- Progress Bar -->
+        <div class="progress mt-3" style="height: 20px;">
+            <div class="progress-bar
+                {% if risk_level == 'High' %} bg-danger
+                {% elif risk_level == 'Medium' %} bg-warning
+                {% else %} bg-success
+                {% endif %}
+            "
+            role="progressbar"
+            style="width: {{ probability * 100 }}%;">
+                {{ probability * 100 }}%
+            </div>
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
